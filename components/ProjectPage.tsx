@@ -91,8 +91,10 @@ export function ProjectPage({ project }: { project: ProjectMeta }) {
         <section className="px-8 py-8 border-t border-white/15">
           <FadeInStagger className="flex flex-col gap-4">
             {project.images.map((src, i) => (
-              <FadeInItem key={i} className="relative w-full overflow-hidden" style={{ height: "50vw", maxHeight: "640px" } as React.CSSProperties}>
-                <Image src={src} alt={`${project.title} ${i + 1}`} fill className="object-cover" unoptimized />
+              <FadeInItem key={i}>
+                <div className="relative w-full overflow-hidden" style={{ height: "50vw", maxHeight: "640px" }}>
+                  <Image src={src} alt={`${project.title} ${i + 1}`} fill className="object-cover" unoptimized />
+                </div>
               </FadeInItem>
             ))}
           </FadeInStagger>

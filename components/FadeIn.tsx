@@ -3,6 +3,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
+const EASE = [0.22, 1, 0.36, 1] as const;
+
 interface FadeInProps {
   children: React.ReactNode;
   delay?: number;
@@ -14,30 +16,15 @@ export function FadeIn({ children, delay = 0, className = "", direction = "up" }
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
-  const variants = {
-    hidden: {
-      opacity: 0,
-      y: direction === "up" ? 40 : 0,
-      x: direction === "left" ? -40 : 0,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      x: 0,
-      transition: {
-        duration: 0.7,
-        delay,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
+  const yVal = direction === "up" ? 40 : 0;
+  const xVal = direction === "left" ? -40 : 0;
 
   return (
     <motion.div
       ref={ref}
-      variants={variants}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      initial={{ opacity: 0, y: yVal, x: xVal }}
+      animate={isInView ? { opacity: 1, y: 0, x: 0 } : { opacity: 0, y: yVal, x: xVal }}
+      transition={{ duration: 0.7, delay, ease: EASE }}
       className={className}
     >
       {children}
@@ -54,7 +41,7 @@ export function FadeInStagger({ children, className = "" }: { children: React.Re
       ref={ref}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      variants={{ visible: { transition: { staggerChildren: 0.12 } } }}
+      variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
       className={className}
     >
       {children}
@@ -67,7 +54,7 @@ export function FadeInItem({ children, className = "" }: { children: React.React
     <motion.div
       variants={{
         hidden: { opacity: 0, y: 30 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
       }}
       className={className}
     >
