@@ -34,17 +34,11 @@ body {
 /* Typography calibration */
 h1, h2, h3 {
   font-family: var(--font-manrope);
-  letter-spacing: -0.02em;
   line-height: 0.95;
 }
 
 p {
   line-height: 1.6;
-}
-
-/* Nav links */
-nav a {
-  letter-spacing: 0.12em;
 }
 
 /* Smooth image rendering */
