@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, Inter } from "next/font/google";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -20,15 +22,13 @@ export const metadata: Metadata = {
     "Experience & Product Design Lead with 9+ years of expertise in Product and UX/UI Design, specializing in emerging technologies.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${manrope.variable} ${inter.variable}`}>
       <body className="bg-black text-white min-h-screen" style={{ fontFamily: "var(--font-inter)" }}>
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
